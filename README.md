@@ -3,7 +3,10 @@
 # Sobre o projeto
 
 Events é um aplicação back end desenvolvida com Spring Boot para implementar um CRUD completo de web services REST para acessar os recursos de City e Events
-empregando o padrão TDD(Test Driven Development), que foi solicitado como um trabalho de final do segundo capítulo do Bootcamp Spring React da DevSuperior.
+empregando o padrão TDD(Test Driven Development), que foi solicitado como um trabalho de final do segundo capítulo do Bootcamp Spring React da DevSuperior, 
+fundamentos de testes automatizados, TDD, JUnit com e sem Spring Boot, testes de repositories, services e resources, testes de integração, mockar
+dependências com Mockito e MockBean.
+
 
 # Enunciado do trabalho
 
