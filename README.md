@@ -1,8 +1,9 @@
-# CadClient
+# Events
 
 # Sobre o projeto
 
-CadClient é um aplicação back end desenvolvida com Spring Boot para implementar um CRUD completo de web services REST para acessar um recurso de clientes, que foi solicitado como um trabalho de final do primeiro capítulo do Bootcamp Spring React da DevSuperior.
+Events é um aplicação back end desenvolvida com Spring Boot para implementar um CRUD completo de web services REST para acessar os recursos de City e Events
+empregando o padrão TDD(Test Driven Development), que foi solicitado como um trabalho de final do segundo capítulo do Bootcamp Spring React da DevSuperior.
 
 # Enunciado do trabalho
 
@@ -131,11 +132,11 @@ O projeto deverá estar com um ambiente de testes configurado acessando o banco 
 
 # Modelo Conceitual
 
-![Modelo](https://github.com/galetedanilo/cadclient/blob/master/assets/modelo.png)
+![Modelo](https://github.com/galetedanilo/events/blob/master/assets/modelo.png)
 
 # Padrão Camada
 
-![Padrao](https://github.com/galetedanilo/cadclient/blob/master/assets/camadas.png)
+![Padrao](https://github.com/galetedanilo/events/blob/master/assets/camadas.png)
 
 # Tecnologias Utilizadas
 
