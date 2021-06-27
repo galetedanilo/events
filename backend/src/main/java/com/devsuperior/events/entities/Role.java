@@ -1,83 +1,49 @@
 package com.devsuperior.events.entities;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
 @Entity
-@Table(name = "tb_event")
-public class Event implements Serializable {
+@Table(name = "tb_role")
+public class Role implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String name;
-	private LocalDate date;
-	private String url;
 	
-	@ManyToOne
-	@JoinColumn(name = "city_id")
-	private City city;
+	private String authority;
 	
-	public Event() {
+	public Role() {
 		
 	}
-
-	public Event(Long id, String name, LocalDate date, String url, City city) {
+	
+	public Role(Long id, String authority) {
 		this.id = id;
-		this.name = name;
-		this.date = date;
-		this.url = url;
-		this.city = city;
+		this.authority = authority;
 	}
-
+	
 	public Long getId() {
 		return id;
 	}
-
+	
 	public void setId(Long id) {
-		this.id = id;
+		this.id =  id;
 	}
-
-	public String getName() {
-		return name;
+	
+	public String getAuthority() {
+		return authority;
 	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public LocalDate getDate() {
-		return date;
-	}
-
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public City getCity() {
-		return city;
-	}
-
-	public void setCity(City city) {
-		this.city = city;
+	
+	public void setAuthority(String authority) {
+		this.authority = authority;
 	}
 
 	@Override
@@ -96,7 +62,7 @@ public class Event implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Event other = (Event) obj;
+		Role other = (Role) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -104,4 +70,6 @@ public class Event implements Serializable {
 			return false;
 		return true;
 	}
+
+	
 }

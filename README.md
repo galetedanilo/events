@@ -2,136 +2,49 @@
 
 # Sobre o projeto
 
-Events é um aplicação back end desenvolvida com Spring Boot para implementar um CRUD completo de web services REST para acessar os recursos de City e Events
-empregando o padrão TDD(Test Driven Development), que foi solicitado como um trabalho de final do segundo capítulo do Bootcamp Spring React da DevSuperior, 
-fundamentos de testes automatizados, TDD, JUnit com e sem Spring Boot, testes de repositories, services e resources, testes de integração, mockar
-dependências com Mockito e MockBean.
+Events é uma aplicação back end desenvolvida com Spring Boot para implementar um CRUD completo de web services REST para acessar os recursos de Cities, Events e Users.
+Neste sistema, somente as rotas de leitura (GET) de eventos e cidades são públicas (não precisa de login). Usuários CLIENT podem também inserir (POST) novos eventos. 
+Os demais acessos são permitidos apenas a usuários ADMIN. O projeto foi desenvolvido empregando o padrão TDD(Test Driven Development) e foi solicitado como um trabalho 
+final do segundo e terceiro capítulo do Bootcamp Spring React da DevSuperior.
 
+Capítulo 2: 
 
-# Enunciado do trabalho
+Fundamentos de testes automatizados:
+- Tipos de testes
+- Benefícios
+- TDD - Test Driven Development
+- Boas práticas e padrões
+JUnit:
+- Básico (vanilla)
+JUnit Spring Boot:
+- Repositories
+- Services
+- Resources (web)
+- Integração
+Mockito & MockBean:
+- @Mock
+- @InjectMocks
+- Mockito.when / thenReturn / doNothing / doThrow
+- ArgumentMatchers
+- Mockito.verify
+- @MockBean
+- @MockMvc
 
-Implemente as funcionalidades necessárias para que os testes do projeto abaixo passem:
+Capítulo 3:
 
-```
-@SpringBootTest
-@AutoConfigureMockMvc
-public class CityControllerDataIntegrityIT {
+Modelo de dados de usuários e perfis:
+- User
+- Role
+Validação com Bean Validation:
+- Annotations
+- Customizando a resposta HTTP
+- Validações personalizadas com acesso a banco
+Autenticação e autorização:
+- Spring Security
+- OAuth 2.0
+- Token JWT
+- Autorização de rotas por perfil
 
-	@Autowired
-	private MockMvc mockMvc;
-	
-	@Test
-	public void deleteShouldReturnBadRequestWhenDependentId() throws Exception {		
-
-		Long dependentId = 1L;
-		
-		ResultActions result =
-				mockMvc.perform(delete("/cities/{id}", dependentId));
-				
-		result.andExpect(status().isBadRequest());
-	}
-}
-
-@SpringBootTest
-@AutoConfigureMockMvc
-@Transactional
-public class CityControllerIT {
-
-	@Autowired
-	private MockMvc mockMvc;
-	
-	@Test
-	public void deleteShouldReturnNoContentWhenIndependentId() throws Exception {		
-		
-		Long independentId = 5L;
-		
-		ResultActions result =
-				mockMvc.perform(delete("/cities/{id}", independentId));
-		
-		
-		result.andExpect(status().isNoContent());
-	}
-
-	@Test
-	public void deleteShouldReturnNotFoundWhenNonExistingId() throws Exception {		
-
-		Long nonExistingId = 50L;
-		
-		ResultActions result =
-				mockMvc.perform(delete("/cities/{id}", nonExistingId));
-
-		result.andExpect(status().isNotFound());
-	}
-
-	@Test
-	public void findAllShouldReturnAllResourcesSortedByName() throws Exception {
-		
-		ResultActions result =
-				mockMvc.perform(get("/cities")
-					.contentType(MediaType.APPLICATION_JSON));
-
-		result.andExpect(status().isOk());
-		result.andExpect(jsonPath("$[0].name").value("Belo Horizonte"));
-		result.andExpect(jsonPath("$[1].name").value("Belém"));
-		result.andExpect(jsonPath("$[2].name").value("Brasília"));
-	}
-}
-
-@SpringBootTest
-@AutoConfigureMockMvc
-@Transactional
-public class EventControllerIT {
-
-	@Autowired
-	private MockMvc mockMvc;
-	
-	@Autowired
-	private ObjectMapper objectMapper;
-	
-	@Test
-	public void updateShouldUpdateResourceWhenIdExists() throws Exception {
-
-		long existingId = 1L;
-		
-		EventDTO dto = new EventDTO(null, "Expo XP", LocalDate.of(2021, 5, 18), "https://expoxp.com.br", 7L);
-		String jsonBody = objectMapper.writeValueAsString(dto);
-		
-		ResultActions result =
-				mockMvc.perform(put("/events/{id}", existingId)
-					.content(jsonBody)
-					.contentType(MediaType.APPLICATION_JSON)
-					.accept(MediaType.APPLICATION_JSON));
-		
-		result.andExpect(status().isOk());
-		result.andExpect(jsonPath("$.id").exists());
-		result.andExpect(jsonPath("$.id").value(1L));		
-		result.andExpect(jsonPath("$.name").value("Expo XP"));
-		result.andExpect(jsonPath("$.date").value("2021-05-18"));
-		result.andExpect(jsonPath("$.url").value("https://expoxp.com.br"));
-		result.andExpect(jsonPath("$.cityId").value(7L));
-	}
-
-	@Test
-	public void updateShouldReturnNotFoundWhenIdDoesNotExist() throws Exception {
-
-		long nonExistingId = 1000L;
-		
-		EventDTO dto = new EventDTO(null, "Expo XP", LocalDate.of(2021, 5, 18), "https://expoxp.com.br", 7L);
-		String jsonBody = objectMapper.writeValueAsString(dto);
-		
-		ResultActions result =
-				mockMvc.perform(put("/events/{id}", nonExistingId)
-					.content(jsonBody)
-					.contentType(MediaType.APPLICATION_JSON)
-					.accept(MediaType.APPLICATION_JSON));
-		
-		result.andExpect(status().isNotFound());
-	}
-}
-
-```
-
-O projeto deverá estar com um ambiente de testes configurado acessando o banco de dados H2, deverá usar Maven como gerenciador de dependência e Java 11 como linguagem
 
 # Modelo Conceitual
 
@@ -147,6 +60,10 @@ O projeto deverá estar com um ambiente de testes configurado acessando o banco 
 
 - Java
 - Spring Boot
+- Spring Security
+- Spring Validation
+- OAuth 2.0
+- Token JWT
 - JPA / Hibernate
 - Maven
 - JUnit

@@ -17,50 +17,50 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.devsuperior.events.dto.EventDTO;
-import com.devsuperior.events.services.EventService;
-
+import com.devsuperior.events.dto.UserDTO;
+import com.devsuperior.events.dto.UserInsertDTO;
+import com.devsuperior.events.services.UserService;
 
 @RestController
-@RequestMapping(value = "/events")
-public class EventController {
-	
+@RequestMapping(name = "/users")
+public class UserController {
+
 	@Autowired
-	private EventService service;
+	private UserService service;
 	
 	@GetMapping
-	public ResponseEntity<Page<EventDTO>> findAll(Pageable pageable) {
+	public ResponseEntity<Page<UserDTO>> findAll(Pageable pageable) {
 		
-		Page<EventDTO> response = service.findAll(pageable);
+		Page<UserDTO> page = service.findAll(pageable);
 		
-		return ResponseEntity.ok().body(response);
+		return ResponseEntity.ok().body(page);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<EventDTO> findById(@PathVariable Long id) {
+	public ResponseEntity<UserDTO> findById(@PathVariable Long id) {
+		 
+		UserDTO dto = service.findById(id);
 		
-		EventDTO response = service.findById(id);
-		
-		return ResponseEntity.ok().body(response);
+		return ResponseEntity.ok().body(dto);
 	}
 	
 	@PostMapping
-	public ResponseEntity<EventDTO> insert(@Validated @RequestBody EventDTO dto) {
+	public ResponseEntity<UserDTO> insert(@Validated @RequestBody UserInsertDTO dto) {
 		
-		dto = service.insert(dto);
+		UserDTO user = service.insert(dto);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(dto.getId()).toUri();
+					.buildAndExpand(dto.getId()).toUri();
 		
-		return ResponseEntity.created(uri).body(dto);
+		return ResponseEntity.created(uri).body(user);
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<EventDTO> update(@PathVariable Long id, @Validated @RequestBody EventDTO dto) {
+	public ResponseEntity<UserDTO> update(@PathVariable Long id, @Validated @RequestBody UserInsertDTO dto) {
 		
-		dto = service.update(id, dto);
+		UserDTO user = service.update(id, dto);
 		
-		return ResponseEntity.ok().body(dto);
+		return ResponseEntity.ok().body(user);
 	}
 	
 	@DeleteMapping(value = "/{id}")

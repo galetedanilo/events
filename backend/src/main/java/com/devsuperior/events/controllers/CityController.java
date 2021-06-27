@@ -1,12 +1,12 @@
 package com.devsuperior.events.controllers;
 
 import java.net.URI;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,17 +28,9 @@ public class CityController {
 	private CityService service;
 	
 	@GetMapping
-	public ResponseEntity<List<CityDTO>> findAll () {
+	public ResponseEntity<Page<CityDTO>> findAll(Pageable pageable) {
 		
-		List<CityDTO> list = service.findAllList();
-		
-		return ResponseEntity.ok().body(list);
-	}
-	
-	@GetMapping(value = "/pageable")
-	public ResponseEntity<Page<CityDTO>> findAllPaged(Pageable pageable) {
-		
-		Page<CityDTO> page = service.findAllPage(pageable);
+		Page<CityDTO> page = service.findAll(pageable);
 		
 		return ResponseEntity.ok().body(page);
 	}
@@ -51,18 +43,18 @@ public class CityController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<CityDTO> insert(@RequestBody CityDTO dto) {
+	public ResponseEntity<CityDTO> insert(@Validated @RequestBody CityDTO dto) {
 		
 		dto = service.insert(dto);
 		
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("{id}")
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(dto.getId()).toUri();
 		
 		return ResponseEntity.created(uri).body(dto);
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<CityDTO> update(@PathVariable Long id, @RequestBody CityDTO dto) {
+	public ResponseEntity<CityDTO> update(@PathVariable Long id, @Validated @RequestBody CityDTO dto) {
 		
 		dto = service.update(id, dto);
 		

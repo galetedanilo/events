@@ -1,9 +1,6 @@
 package com.devsuperior.events.services;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -12,7 +9,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,18 +29,9 @@ public class CityService {
 		entity.setName(dto.getName());
 	}
 	
-	@Transactional(readOnly = true)
-	public List<CityDTO> findAllList() {
-		
-		List<City> list = new ArrayList<>();
-		
-		list = repository.findAll(Sort.by("name"));
-		
-		return list.stream().map(x -> new CityDTO(x)).collect(Collectors.toList());
-	}
 	
 	@Transactional(readOnly = true)
-	public Page<CityDTO> findAllPage(Pageable pageable) {
+	public Page<CityDTO> findAll(Pageable pageable) {
 		
 		Page<City> entity = repository.findAll(pageable);
 		

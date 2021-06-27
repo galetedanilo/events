@@ -3,15 +3,31 @@ package com.devsuperior.events.dto;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import com.devsuperior.events.entities.Event;
 
 public class EventDTO implements Serializable{
+	
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	
+	@NotBlank(message = "Campo requerido")
+	@Size(max = 50, min = 3, message = "O campo nome deve ter entre 3 e 50 caracteres!")
 	private String name;
+	
+	@Future(message = "A data do evento não pode ser passada")
 	private LocalDate date;
+	
+	@NotBlank(message = "Campo requerido")
+	@Size(max = 50, min = 3, message =  "O campo url deve ter entre 3 e 50 caracteres!")
 	private String url;
+	
+	@NotNull(message = "Campo requerido")
 	private Long cityId;
 	
 	public EventDTO() {
